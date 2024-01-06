@@ -62,6 +62,18 @@ void init ()
 //-------------------------------------------------------------------------
 void display (void)
 {
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	// Set color (for example, green)
+	glColor3f(0.0f, 1.0f, 0.0f);
+
+	// Draw a line from (x1, y1) to (x2, y2)
+	glBegin(GL_LINES);
+	glVertex2f(50.0f, 50.0f);  // Starting point
+	glVertex2f(150.0f, 150.0f);  // Ending point
+	glEnd();
+
+	//glFlush();
 	//  Swap contents of backward and forward frame buffers
 	glutSwapBuffers ();
 }
