@@ -146,8 +146,10 @@
   <ItemGroup>
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="DropDownMenu.cpp" />
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GLUT_Window_Template.cpp" />
     <ClCompile Include="MathMain.cpp" />
+    <ClCompile Include="Polygon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -156,6 +158,8 @@
     <ClInclude Include="Color.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="DropDownMenu.h" />
+    <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Polygon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

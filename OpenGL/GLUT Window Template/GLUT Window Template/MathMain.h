@@ -9,18 +9,19 @@
 class MathMain {
 private:
 	static MathMain* instance;
+	static glm::vec2 screenSize;
 	int brushSize;
 	Color color;
+	Geometry* geometry;
 	Drawing* drawing;
 	DropDownMenu* menu;
 	glm::vec2 lastPos = glm::vec2(-1, -1);
-
 public:
-	MathMain(Color color = Color(), int brushSize = 100) {
-		this->brushSize = brushSize;
+	MathMain(Color color = Color(), int brushSize = 100): color(color),brushSize(brushSize) {
+		this->geometry= new Geometry();
 		this->drawing = new Drawing();
 		this->menu = new DropDownMenu();
-		this->color = color;
+		instance = this;
 	};
 	static MathMain* getInstance() {
 		if (instance == nullptr)
@@ -33,6 +34,15 @@ public:
 	}
 	static void MouseDragWrapper(int x, int y) { getInstance()->MouseDrag(x, y); }
 	void MouseDrag(int x, int y);
+	static void Reshape(int w, int h) {
+		screenSize = glm::vec2(w, h);
+	}
+	static void DisplayWrapper() {
+		glClear(GL_COLOR_BUFFER_BIT);
+		auto inst = getInstance();
+		inst->drawing->DrawAllGeometry(inst->geometry);
+		glutSwapBuffers();
+	}
 };
 
 
