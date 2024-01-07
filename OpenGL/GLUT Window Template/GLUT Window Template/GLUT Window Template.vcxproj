@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="ClosedLineSequence.cpp" />
     <ClCompile Include="Drawing.cpp" />
+    <ClCompile Include="DrawingMode.cpp" />
     <ClCompile Include="DropDownMenu.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GLUT_Window_Template.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ClosedLineSequence.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Drawing.h" />
+    <ClInclude Include="DrawingMode.h" />
     <ClInclude Include="DropDownMenu.h" />
     <ClInclude Include="Geometry.h" />
   </ItemGroup>

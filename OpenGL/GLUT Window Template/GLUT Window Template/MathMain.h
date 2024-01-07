@@ -7,22 +7,22 @@
 #include "Drawing.h"
 #include "DropDownMenu.h"
 #include "ClosedLineSequence.h"
+#include "DrawingMode.h"
 class MathMain {
 private:
 	static MathMain* instance;
 	static glm::vec2 screenSize;
-	int brushSize;
-	Color color;
 	Geometry* geometry;
 	Drawing* drawing;
+	DrawingMode* mode;
 	DropDownMenu* menu;
-	ClosedLineSequence* currentPoly=nullptr;
-	glm::vec2 lastPos = glm::vec2(-1, -1);
+	
 public:
-	MathMain(Color color = Color(), int brushSize = 100): color(color),brushSize(brushSize) {
+	MathMain() {
 		this->geometry= new Geometry();
 		this->drawing = new Drawing();
-		this->menu = new DropDownMenu();
+		this->mode = new DrawingMode(geometry,drawing);
+		this->menu = new DropDownMenu(mode);
 		instance = this;
 	};
 	static MathMain* getInstance() {

@@ -3,6 +3,7 @@
 
 void const Drawing::DrawAllGeometry(Geometry* const geometry)
 {
+	//DrawImage(true);
 	for (auto l : geometry->getFreeLines())
 	{
 		DrawLine(l.x, l.y, 1);
@@ -30,4 +31,13 @@ void Drawing::DrawLine(int xB, int yB, int xE, int yE, int width)
 		glEnd();
 	}
 	glFlush();
+}
+void Drawing::DrawImage(bool forceScale) {
+	glBindTexture(GL_TEXTURE_2D, id);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex2f(-1, -1);
+	glTexCoord2f(1, 0); glVertex2f(1, -1);
+	glTexCoord2f(1, 1); glVertex2f(1, 1);
+	glTexCoord2f(0, 1); glVertex2f(-1, 1);
+	glEnd();
 }
