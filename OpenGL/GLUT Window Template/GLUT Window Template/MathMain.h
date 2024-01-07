@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "Drawing.h"
 #include "DropDownMenu.h"
+#include "ClosedLineSequence.h"
 class MathMain {
 private:
 	static MathMain* instance;
@@ -15,6 +16,7 @@ private:
 	Geometry* geometry;
 	Drawing* drawing;
 	DropDownMenu* menu;
+	ClosedLineSequence* currentPoly=nullptr;
 	glm::vec2 lastPos = glm::vec2(-1, -1);
 public:
 	MathMain(Color color = Color(), int brushSize = 100): color(color),brushSize(brushSize) {

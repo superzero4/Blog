@@ -3,9 +3,17 @@
 
 void const Drawing::DrawAllGeometry(Geometry* const geometry)
 {
-	for (auto l : geometry->getLines())
+	for (auto l : geometry->getFreeLines())
 	{
 		DrawLine(l.x, l.y, 1);
+	}
+	for (auto l : geometry->getPolygons())
+	{
+		auto points = l->getPoints();
+		for (size_t i = 0; i < points.size() - 1; i++)
+			DrawLine(points[i], points[i + 1]);
+		if (l->isClosed())
+			DrawLine(points[points.size() - 1], points[0]);
 	}
 }
 

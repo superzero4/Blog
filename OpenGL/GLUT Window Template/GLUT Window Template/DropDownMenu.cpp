@@ -11,6 +11,8 @@ void DropDownMenu::HandleMenu(int value)
 
 DropDownMenu::DropDownMenu()
 {
+	return;
+	throw "Unimplemented, causes stack overflow";
 	int main = glutCreateMenu(HandleMenu);
 	glutAddSubMenu("Color",main);
 	glutAddMenuEntry("Red", 0);

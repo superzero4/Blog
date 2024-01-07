@@ -30,7 +30,7 @@
     <ClCompile Include="Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Polygon.cpp">
+    <ClCompile Include="ClosedLineSequence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +50,7 @@
     <ClInclude Include="Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Polygon.h">
+    <ClInclude Include="ClosedLineSequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
