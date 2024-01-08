@@ -12,19 +12,12 @@ class MathMain {
 private:
 	static MathMain* instance;
 	static glm::vec2 screenSize;
-	Geometry* geometry;
 	Drawing* drawing;
 	DrawingMode* mode;
 	DropDownMenu* menu;
-	
+
 public:
-	MathMain() {
-		this->geometry= new Geometry();
-		this->drawing = new Drawing();
-		this->mode = new DrawingMode(geometry,drawing);
-		this->menu = new DropDownMenu(mode);
-		instance = this;
-	};
+	MathMain();
 	static MathMain* getInstance() {
 		if (instance == nullptr)
 			instance = new MathMain();
@@ -42,9 +35,25 @@ public:
 	static void DisplayWrapper() {
 		glClear(GL_COLOR_BUFFER_BIT);
 		auto inst = getInstance();
-		inst->drawing->DrawAllGeometry(inst->geometry);
+		inst->drawing->DrawAllGeometry();
 		glutSwapBuffers();
 	}
+#pragma region menuStaticBinding
+
+
+	static void HandleMenu(int value) {
+		getInstance()->menu->HandleMenu(value);
+	}
+	static void HandleMode(int value) {
+		getInstance()->menu->HandleMode(value);
+	}
+	static void HandleColor(int value) {
+		getInstance()->menu->HandleColor(value);
+	}
+	static void HandleBrush(int value) {
+		getInstance()->menu->HandleBrush(value);
+	}
+#pragma endregion
 };
 
 

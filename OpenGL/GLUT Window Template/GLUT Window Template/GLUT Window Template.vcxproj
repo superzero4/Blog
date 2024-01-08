@@ -162,6 +162,8 @@
     <ClInclude Include="DrawingMode.h" />
     <ClInclude Include="DropDownMenu.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="MathMain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

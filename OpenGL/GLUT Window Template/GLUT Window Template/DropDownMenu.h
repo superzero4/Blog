@@ -7,10 +7,9 @@ private:
 	DrawingMode* mode;
 public:
 	DropDownMenu(DrawingMode* mode);
-	void Menu(int x, int y);
-	static void HandleMenu(int value);
-	static void HandleColor(int value);
-	static void HandleBrush(int value);
-	static void HandleMode(int value);
+	void HandleMenu(int value);
+	void HandleColor(int value);
+	void HandleBrush(int value);
+	void HandleMode(int value);
 };
 

@@ -3,6 +3,32 @@
 
 MathMain* MathMain::instance = nullptr;
 glm::vec2 MathMain::screenSize;
+MathMain::MathMain()
+{
+	this->drawing = new Drawing();
+	this->mode = new DrawingMode(drawing);
+	this->menu = new DropDownMenu(mode);
+	instance = this;
+	int color, width, modeIndex;
+	modeIndex = glutCreateMenu(HandleMode);
+	glutAddMenuEntry("Polygon", 0);
+	glutAddMenuEntry("Clipping window", 1);
+	glutAddMenuEntry("Line", 2);
+	color = glutCreateMenu(HandleColor);
+	glutAddMenuEntry("Red", 0);
+	glutAddMenuEntry("Green", 1);
+	glutAddMenuEntry("Blue", 2);
+	width = glutCreateMenu(HandleBrush);
+	glutAddMenuEntry("5", 0);
+	glutAddMenuEntry("50", 1);
+	glutAddMenuEntry("250", 2);
+	int main = glutCreateMenu(HandleMenu);
+	glutAddSubMenu("Mode", modeIndex);
+	glutAddSubMenu("Color", color);
+	//glutAddSubMenu("Width", width);
+	glutSetMenu(main);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
 void MathMain::MouseClick(int button, int state, int x, int y)
 {
 	auto pixelSpacePos = glm::vec2(x, screenSize.y - y);

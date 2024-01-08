@@ -17,3 +17,11 @@ void ClosedLineSequence::EndPolygon()
 	AddPoint(points[0]);
 	closed = true;
 }
+
+void ClosedLineSequence::Draw() const
+{
+	for (size_t i = 0; i < points.size() - 1; i++)
+		DrawLine(points[i], points[i + 1],color);
+	if (closed)
+		DrawLine(points[points.size() - 1], points[0],color);
+}
