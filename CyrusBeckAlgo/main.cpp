@@ -140,22 +140,126 @@ void drawClippingWindow() {
     }
 }
 
+// Menu action identifiers
+enum MenuActions {
+    DRAW_POLYGON,
+    DRAW_WINDOW,
+    PERFORM_CLIPPING,
+    CLEAR_ALL,
+    COLOR_RED,
+    COLOR_GREEN,
+    COLOR_BLUE,
+    COLOR_YELLOW,
+    COLOR_PURPLE
+};
+
+// Color for the user-defined polygon and clipping window
+float polygonColor[3] = {0.0, 0.0, 1.0}; // Default to blue
+
+void changeColor(float r, float g, float b) {
+    polygonColor[0] = r;
+    polygonColor[1] = g;
+    polygonColor[2] = b;
+}
+
+void colorMenu(int item) {
+    switch (item) {
+        case COLOR_RED:
+            changeColor(1.0, 0.0, 0.0); // Red
+            break;
+        case COLOR_GREEN:
+            changeColor(0.0, 1.0, 0.0); // Green
+            break;
+        case COLOR_BLUE:
+            changeColor(0.0, 0.0, 1.0); // Blue
+            break;
+        case COLOR_YELLOW:
+            changeColor(1.0, 1.0, 0.0); // Yellow
+            break;
+        case COLOR_PURPLE:
+            changeColor(1.0, 0.0, 1.0); // Purple
+            break;
+    }
+    glutPostRedisplay();
+}
+
+int createColorMenu() {
+    int submenu = glutCreateMenu(colorMenu);
+    glutAddMenuEntry("Red", COLOR_RED);
+    glutAddMenuEntry("Green", COLOR_GREEN);
+    glutAddMenuEntry("Blue", COLOR_BLUE);
+    glutAddMenuEntry("Yellow", COLOR_YELLOW);
+    glutAddMenuEntry("Purple", COLOR_PURPLE);
+
+    return submenu;
+}
+
+// Global state variables
+bool drawPolygonMode = false;
+bool drawWindowMode = false;
+bool performClippingMode = false;
+
+void menu(int item) {
+    switch (item) {
+        case DRAW_POLYGON:
+            drawPolygonMode = true;
+            drawWindowMode = false;
+            performClippingMode = false;
+            userPolygon.clear();
+            break;
+        case DRAW_WINDOW:
+            drawPolygonMode = false;
+            drawWindowMode = true;
+            performClippingMode = false;
+            break;
+        case PERFORM_CLIPPING:
+            if (userPolygon.size() >= 3) {
+                performClippingMode = true;
+            }
+            break;
+        case CLEAR_ALL:
+            drawPolygonMode = false;
+            drawWindowMode = false;
+            performClippingMode = false;
+            userPolygon.clear();
+            break;
+    }
+    glutPostRedisplay();
+}
+
+void createMenu() {
+    int colorMenu = createColorMenu();
+
+    glutCreateMenu(menu);
+    glutAddMenuEntry("Draw Polygon", DRAW_POLYGON);
+    glutAddMenuEntry("Draw Clipping Window", DRAW_WINDOW);
+    glutAddMenuEntry("Perform Clipping", PERFORM_CLIPPING);
+    glutAddMenuEntry("Clear All", CLEAR_ALL);
+    glutAddSubMenu("Colors", colorMenu);
+    glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
+
+
 void display() {
     glClear(GL_COLOR_BUFFER_BIT);
 
+    if (drawWindowMode || performClippingMode || drawPolygonMode) {
+         // Draw the clipping window in red
+        // glColor3f(1.0, 0.0, 0.0); // Red color for the clipping window
+        glColor3fv(polygonColor); // Set color for the clipping window
 
-    // Draw the clipping window in red
-    glColor3f(1.0, 0.0, 0.0); // Red color for the clipping window
-    glBegin(GL_LINE_LOOP);
-    for (int i = 0; i < 4; ++i) {
-        glVertex2f(clippingWindow[i].x, clippingWindow[i].y);
+        glBegin(GL_LINE_LOOP);
+        for (int i = 0; i < 4; ++i) {
+            glVertex2f(clippingWindow[i].x, clippingWindow[i].y);
+        }
+        glEnd();
     }
-    glEnd();
 
+     // Draw the user-defined polygon in blue if enough points are selected
+    if (drawPolygonMode || performClippingMode || userPolygon.size() >= 2) {
+        //glColor3f(0.0, 0.0, 1.0); // Blue color for the original polygon
+        glColor3fv(polygonColor); // Set color for the user-defined polygon
 
-     // Draw the original polygon in blue if enough points are selected
-    if (userPolygon.size() >= 2) {
-        glColor3f(0.0, 0.0, 1.0); // Blue color for the original polygon
         glBegin(GL_LINE_LOOP);
         for (const auto& point : userPolygon) {
             glVertex2f(point.x, point.y);
@@ -164,7 +268,7 @@ void display() {
     }
 
     // Check if the user has finished selecting points for the original polygon
-    if (userPolygon.size() >= 3 && userPolygon.size() <= maxPoints) {
+    if (performClippingMode && userPolygon.size() >= 3 && userPolygon.size() <= maxPoints) {
         // Apply Cyrus-Beck algorithm to each line segment of the polygon
         std::vector<Edge> edges = buildEdges(std::vector<Point>(std::begin(clippingWindow), std::end(clippingWindow)));
         std::vector<Point> clippedPoints; // To store the endpoints of clipped segments
@@ -191,10 +295,9 @@ void display() {
             glEnd();
         }
     }
-
-
     glFlush();
 }
+
 // GLUT main function
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
@@ -205,6 +308,8 @@ int main(int argc, char** argv) {
 
     glClearColor(1.0, 1.0, 1.0, 0.0); // Set background to white
     gluOrtho2D(0, 400, 0, 400); // Set the coordinate system
+
+    createMenu(); // Create the right-click menu
 
     glutMouseFunc(mouse); // Register mouse callback
     glutDisplayFunc(display);
