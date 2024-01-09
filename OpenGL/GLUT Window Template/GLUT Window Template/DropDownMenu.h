@@ -11,5 +11,6 @@ public:
 	void HandleColor(int value);
 	void HandleBrush(int value);
 	void HandleMode(int value);
+	void HandleClip(int value);
 };
 

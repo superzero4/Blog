@@ -8,8 +8,9 @@ MathMain::MathMain()
 	this->drawing = new Drawing();
 	this->mode = new DrawingMode(drawing);
 	this->menu = new DropDownMenu(mode);
+	this->clip = new DropDownMenu(mode);
 	instance = this;
-	int color, width, modeIndex;
+	int color, width, modeIndex, clipping;
 	modeIndex = glutCreateMenu(HandleMode);
 	glutAddMenuEntry("Polygon", 0);
 	glutAddMenuEntry("Clipping window", 1);
@@ -18,6 +19,9 @@ MathMain::MathMain()
 	glutAddMenuEntry("Red", 0);
 	glutAddMenuEntry("Green", 1);
 	glutAddMenuEntry("Blue", 2);
+	clipping = glutCreateMenu(HandleClip);
+	glutAddMenuEntry("Sutherland-Hodgman", 0);
+	glutAddMenuEntry("Cyrus-Beck", 1);
 	width = glutCreateMenu(HandleBrush);
 	glutAddMenuEntry("5", 0);
 	glutAddMenuEntry("50", 1);
@@ -25,6 +29,7 @@ MathMain::MathMain()
 	int main = glutCreateMenu(HandleMenu);
 	glutAddSubMenu("Mode", modeIndex);
 	glutAddSubMenu("Color", color);
+	glutAddSubMenu("Clipping method", clipping);
 	//glutAddSubMenu("Width", width);
 	glutSetMenu(main);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);

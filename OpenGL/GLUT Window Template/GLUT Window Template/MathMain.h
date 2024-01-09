@@ -8,6 +8,7 @@
 #include "DropDownMenu.h"
 #include "ClosedLineSequence.h"
 #include "DrawingMode.h"
+#include "SutherHodgClipping.h"
 class MathMain {
 private:
 	static MathMain* instance;
@@ -15,6 +16,7 @@ private:
 	Drawing* drawing;
 	DrawingMode* mode;
 	DropDownMenu* menu;
+	DropDownMenu* clip;
 
 public:
 	MathMain();
@@ -52,6 +54,9 @@ public:
 	}
 	static void HandleBrush(int value) {
 		getInstance()->menu->HandleBrush(value);
+	}
+	static void HandleClip(int value) {
+		getInstance()->menu->HandleClip(value);
 	}
 #pragma endregion
 };

@@ -14,6 +14,7 @@
 //  Standard Input\Output C Library
 #include <stdio.h>
 #include "MathMain.h"
+#include "SutherHodgClipping.h"
 
 //  Initialization
 void init();

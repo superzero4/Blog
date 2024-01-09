@@ -36,6 +36,9 @@
     <ClCompile Include="DrawingMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SutherHodgClipping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,6 +66,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MathMain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SutherHodgClipping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

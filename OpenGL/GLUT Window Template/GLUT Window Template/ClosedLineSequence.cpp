@@ -1,5 +1,6 @@
 #include <iostream>
 #include "ClosedLineSequence.h"
+#include "SutherHodgClipping.h"
 
 void ClosedLineSequence::AddPoint(glm::vec2 newPoint)
 {

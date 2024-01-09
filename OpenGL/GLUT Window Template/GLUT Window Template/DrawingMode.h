@@ -3,6 +3,8 @@
 #include "Color.h"
 #include "Drawing.h"
 #include "ClosedLineSequence.h"
+#include "SutherHodgClipping.h"
+
 class DrawingMode
 {
 private:
@@ -11,9 +13,10 @@ private:
 	ClosedLineSequence* currentPoly = nullptr;
 	glm::vec2 lastPos = glm::vec2(-1, -1);
 public:
-	bool simpleLine;
+	bool simpleLine ;
 	Color color;
 	Color polygonColor;
+	SutherHodgClipping clipSH;
 	DrawingMode( Drawing* drawing, Color color = Color(), int brushSize = 100) : color(color), brushSize(brushSize), drawing(drawing) {}
 	void LeftButtonDown(glm::vec2 pos);
 	void RightButtonDown(glm::vec2 pos);
